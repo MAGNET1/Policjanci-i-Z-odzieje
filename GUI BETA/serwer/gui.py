@@ -97,7 +97,7 @@ def gameLoop(printStatee, lock):
         textCoordX = int(boardX/8) * 5
         textCoordY = int(boardY/20)
         writeText(win, 'Runda: ' + str(printStatee['t']) + '/' + str(printStatee['TMax']), 30, (textCoordX, textCoordY), (255,255,255))
-        writeText(win, 'Zlodziej: ' + str(printStatee['ttSequence']), 30, (textCoordX + 37, textCoordY + 60), (255,255,255))
+        writeText(win, 'Zlodziej: ' + convertArrows(str(printStatee['ttSequence'])), 30, (textCoordX + 37, textCoordY + 60), (255,255,255))
         ctSequence = copy.deepcopy(printStatee['ctSequence'])
         i = 0
         for key,value in ctSequence.items():
@@ -105,7 +105,7 @@ def gameLoop(printStatee, lock):
             if 'playerMove' in polStr:
                 continue
             # xDDDDDDDDDDDDDDDDDDDDDDD (usprawiedliwiam się: nie dało się wyłuskać zagnieżdżonego słownika, więc na patencie)
-            writeText(win, 'Policjant ' + polStr[7] + ' : ' + polStr[-16:-1], 30, (textCoordX, textCoordY + 90 + (30 * i)), (255,255,255))
+            writeText(win, 'Policjant ' + polStr[7] + ' : ' + convertArrows(polStr[-16:-1]), 30, (textCoordX, textCoordY + 90 + (30 * i)), (255,255,255))
             i += 1
 
         if printStatee['winner'] == 0:
@@ -115,7 +115,7 @@ def gameLoop(printStatee, lock):
             writeText(win, 'Zwyciezca: Policjant!', 30, (textCoordX, 300), (53,93,234))
             writeText(win, 'Punkty: ' + str(printStatee['points']), 30, (textCoordX, 330), (53,93,234))
 
-        writeText(win, 'O', 30, (textCoordX + 155 + (((printStatee['t']+3)%5)*30), 60), (255,255,255))
+        writeText(win, 'O', 30, (textCoordX + 155 + (((printStatee['t']+3)%5)*50), 60), (255,255,255))
 
 
         # drawing board
@@ -129,3 +129,11 @@ def gameLoop(printStatee, lock):
         pygame.display.update()
 
     pygame.quit()
+
+def convertArrows(tab):
+    tab = tab.replace("1", " ↑ ")
+    tab = tab.replace("2", "→")
+    tab = tab.replace("3", " ↓ ")
+    tab = tab.replace("4", "←")
+    tab = tab.replace("0", " 0 ")
+    return tab

@@ -101,6 +101,8 @@ if __name__ == '__main__':
       for i in range(len(ctSequence)):
         ctSequence[i]['sequence'] = [0] * silnik_board.k
 
+    printState['ctSequence'] = sharedInfo['ctSequence']
+    printState['ttSequence'] = sharedInfo['ttSequence']['sequence']
 
     for i in range(silnik_board.k):
       time.sleep(1.0)
@@ -130,8 +132,6 @@ if __name__ == '__main__':
       currentBoard = silnik_board.getBoardStateDictionary()
       printState['board'] = currentBoard
       printState['t'] += 1
-      printState['ctSequence'] = sharedInfo['ctSequence']
-      printState['ttSequence'] = sharedInfo['ttSequence']['sequence']
       boardResult = silnik_board.checkWinningConditions()
       if boardResult[0] != -1:
         print('GAME OVER!')
